@@ -1,0 +1,19 @@
+import { IsNotEmpty, IsOptional, IsNumber, IsString, IsDateString } from 'class-validator';
+
+export class CreateRevenuDto {
+  @IsNotEmpty()
+  @IsString()
+  titre: string;
+
+  @IsNotEmpty()
+  @IsNumber()
+  montant: number;
+
+  @IsNotEmpty()
+  @IsDateString()
+  date: string;
+
+  @IsOptional()
+  @IsString()
+  source?: string;
+}
