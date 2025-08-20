@@ -20,14 +20,13 @@ import { Revenu } from './revenu/entities/revenu.entity';
       inject: [ConfigService],
       useFactory: (config: ConfigService): TypeOrmModuleOptions => ({
         type: 'postgres',
-        host: config.get<string>('DB_HOST')!,
+        host: config.get<string>('DB_HOST'),
         port: parseInt(config.get<string>('DB_PORT')!, 10),
-        username: config.get<string>('DB_USERNAME')!,
-        password: config.get<string>('DB_PASSWORD')!,
-        database: config.get<string>('DB_NAME')!,
+        username: config.get<string>('DB_USERNAME'),
+        password: config.get<string>('DB_PASSWORD'),
+        database: config.get<string>('DB_NAME'),
         entities: [Depense, Revenu],
         synchronize: false,
-
         ssl: {
           rejectUnauthorized: false,
         },
