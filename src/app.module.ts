@@ -18,19 +18,22 @@ import { Revenu } from './revenu/entities/revenu.entity';
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
-      useFactory: (config: ConfigService): TypeOrmModuleOptions => ({
-        type: 'postgres',
-        host: config.get<string>('DB_HOST'),
-        port: parseInt(config.get<string>('DB_PORT')!, 10),
-        username: config.get<string>('DB_USERNAME'),
-        password: config.get<string>('DB_PASSWORD'),
-        database: config.get<string>('DB_NAME'),
-        entities: [Depense, Revenu],
-        synchronize: false,
-        ssl: {
-          rejectUnauthorized: false,
-        },
-      }),
+      useFactory: (config: ConfigService): TypeOrmModuleOptions => {
+        const dbUrl = config.get<string>('DATABASE_URL');
+        console.log('DATABASE_URL:', dbUrl); // Pour vérifier la variable d'environnement
+
+        return {
+          type: 'postgres',
+          url: dbUrl,
+          entities: [Depense, Revenu],
+          synchronize: false,
+          extra: {
+            ssl: {
+              rejectUnauthorized: false,
+            },
+          },
+        };
+      },
     }),
     DepenseModule,
     RevenuModule,
