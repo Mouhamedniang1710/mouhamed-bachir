@@ -14,11 +14,11 @@ import { AppService } from './app.service';
   imports: [
     TypeOrmModule.forRoot({
       type: 'mysql',
-      host: 'localhost',
+      host: 'sql.freedb.tech',
       port: 3306,
-      username: 'root',
-      password: '', 
-      database: 'budget_db',
+      username: 'freedb_mouhamed_17',
+      password: 'b*btVM!2tdyd*9G', 
+      database: 'freedb_budget_10',
       entities: [Depense, Revenu],
       synchronize: true,
       autoLoadEntities: true,
