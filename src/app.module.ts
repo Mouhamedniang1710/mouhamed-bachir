@@ -18,24 +18,16 @@ import { Revenu } from './revenu/entities/revenu.entity';
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
-      useFactory: (config: ConfigService): TypeOrmModuleOptions => {
-        const host: string = config.get<string>('DB_HOST', 'localhost');
-        const port: number = parseInt(config.get<string>('DB_PORT', '5432'), 10);
-        const username: string = config.get<string>('DB_USERNAME', 'postgres');
-        const password: string = config.get<string>('DB_PASSWORD', 'princeniang1710');
-        const database: string = config.get<string>('DB_NAME', 'Budget_10');
-
-        return {
-          type: 'postgres',
-          host,
-          port,
-          username,
-          password,
-          database,
-          entities: [Depense, Revenu],
-          synchronize: true,
-        };
-      },
+      useFactory: (config: ConfigService): TypeOrmModuleOptions => ({
+        type: 'postgres',
+        host: config.get<string>('DB_HOST')!,
+        port: parseInt(config.get<string>('DB_PORT')!, 10),
+        username: config.get<string>('DB_USERNAME')!,
+        password: config.get<string>('DB_PASSWORD')!,
+        database: config.get<string>('DB_NAME')!,
+        entities: [Depense, Revenu],
+        synchronize: false,  
+      }),
     }),
     DepenseModule,
     RevenuModule,
