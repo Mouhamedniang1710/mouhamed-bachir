@@ -26,7 +26,11 @@ import { Revenu } from './revenu/entities/revenu.entity';
         password: config.get<string>('DB_PASSWORD')!,
         database: config.get<string>('DB_NAME')!,
         entities: [Depense, Revenu],
-        synchronize: false,  
+        synchronize: false,
+
+        ssl: {
+          rejectUnauthorized: false,
+        },
       }),
     }),
     DepenseModule,
